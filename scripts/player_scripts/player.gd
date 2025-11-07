@@ -12,6 +12,9 @@ var cur_jump_amt := max_jump_amt
 var is_fuckign_dead_oh_my_fucking_god_he_died_jesus_christ_he_died_waaa_waaa_waaa := false
 
 @export var camera:Camera3D
+
+@export var cameraHandler:CameraHandler
+
 #@export var model:Node3D
 
 func _physics_process(delta: float) -> void:

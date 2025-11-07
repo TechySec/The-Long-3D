@@ -8,6 +8,7 @@ var time_remover := 1.0
 var time_remover_multiplier := 1.0
 
 var next_room_position : int = -1
+var camera_rotation_pre_room_enter:Vector3
 
 func _process(delta: float) -> void:
 	tick -= delta

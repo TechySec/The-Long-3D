@@ -1,4 +1,4 @@
-extends Node3D
+class_name CameraHandler extends Node3D
 
 enum CAMERA_MODE {
 	MODE_2D,
