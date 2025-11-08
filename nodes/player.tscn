@@ -24,9 +24,11 @@ shape = SubResource("CapsuleShape3D_onrkg")
 mesh = SubResource("CapsuleMesh_i3pqv")
 script = ExtResource("3_sweqy")
 
-[node name="SpringArmPivot" type="Node3D" parent="."]
+[node name="SpringArmPivot" type="Node3D" parent="." node_paths=PackedStringArray("top_down_camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("3_i3pqv")
+top_down_camera = NodePath("../2DCAMERA")
+top_down_camera_weight = 6
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SpringArmPivot"]
 shape = SubResource("SphereShape3D_hqtel")
@@ -37,4 +39,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0074625015, 5.693613)
 current = true
 fov = 90.0
 
-[node name="2D_CAMERA_POSITION" type="Camera3D" parent="."]
+[node name="2DCAMERA" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99619466, 0.08715573, 0, -0.08715573, 0.99619466, 0, 2, 6)
+top_level = true
+current = true
+fov = 100.0

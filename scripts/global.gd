@@ -21,6 +21,6 @@ func _process(delta: float) -> void:
 		var hours = floor(time_remaining / 3600) % 24
 		var days = floor(time_remaining / 86400)
 		
-		print("%02d days, %02d hours, %02d minutes, and %02d seconds."%[days,hours,minutes,seconds])
+		#print("%02d days, %02d hours, %02d minutes, and %02d seconds."%[days,hours,minutes,seconds])
 		
 		tick = 1

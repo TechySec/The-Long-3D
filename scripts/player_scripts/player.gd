@@ -20,6 +20,19 @@ var is_fuckign_dead_oh_my_fucking_god_he_died_jesus_christ_he_died_waaa_waaa_waa
 func _physics_process(delta: float) -> void:
 	if is_fuckign_dead_oh_my_fucking_god_he_died_jesus_christ_he_died_waaa_waaa_waaa:
 		return
+		
+	# oh my god there is no Y :(
+	var input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direction := Vector3(input.x, 0, input.y).normalized()
+	if cameraHandler.camera_mode == CameraHandler.CAMERA_MODE.MODE_3D:
+		direction = direction.rotated(Vector3.UP, camera.global_rotation.y)
+		
+		direction *= MOVE_SPEED
+		velocity.x = move_toward(velocity.x, direction.x, delta * 9999999)
+		velocity.z = move_toward(velocity.z, direction.z, delta * 9999999)
+	else:
+		velocity.x = direction.x * MOVE_SPEED
+		velocity.z = direction.z * MOVE_SPEED
 	
 	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
@@ -35,15 +48,5 @@ func _physics_process(delta: float) -> void:
 			
 	if velocity.y > 0 and Input.is_action_just_released("jump"):
 		velocity.y /= 2
-	
-	# oh my god there is no Y :(
-	var input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var direction := Vector3(input.x, 0, input.y).normalized()
-	
-	direction = direction.rotated(Vector3.UP, camera.global_rotation.y)
-	
-	direction *= MOVE_SPEED
-	velocity.x = move_toward(velocity.x, direction.x, delta * 9999999)
-	velocity.z = move_toward(velocity.z, direction.z, delta * 9999999)
 	
 	move_and_slide()
