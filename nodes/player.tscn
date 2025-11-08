@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dv48y0fk4u4fi" path="res://scripts/player_scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Script" uid="uid://b3dn0nsguyle3" path="res://scripts/player_scripts/camera.gd" id="3_i3pqv"]
-[ext_resource type="Script" uid="uid://drdd121h3fn3j" path="res://models/bub/player_model.gd" id="3_sweqy"]
+[ext_resource type="Script" uid="uid://drdd121h3fn3j" path="res://scripts/player_scripts/player_model.gd" id="3_sweqy"]
+[ext_resource type="PackedScene" uid="uid://coptjm1qx2bfl" path="res://models/sad/sad.gltf" id="4_7lbay"]
 [ext_resource type="Script" uid="uid://b1uqci7m3dgon" path="res://nodes/2dcamera.gd" id="4_hqdnm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_i3pqv"]
+radius = 0.28173828
+height = 1.373291
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hqtel"]
 radius = 0.03
@@ -18,12 +19,10 @@ camera = NodePath("SpringArmPivot/SpringArm3D/Camera3D")
 cameraHandler = NodePath("SpringArmPivot")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68684083, 0)
 top_level = true
+visible = false
 shape = SubResource("CapsuleShape3D_onrkg")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_i3pqv")
-script = ExtResource("3_sweqy")
 
 [node name="SpringArmPivot" type="Node3D" parent="." node_paths=PackedStringArray("top_down_camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -51,3 +50,8 @@ script = ExtResource("4_hqdnm")
 one_shot = true
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
+
+[node name="blockbench_export" parent="." instance=ExtResource("4_7lbay")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -0.45, 0)
+script = ExtResource("3_sweqy")
+rotation_change_weight = 24.0
