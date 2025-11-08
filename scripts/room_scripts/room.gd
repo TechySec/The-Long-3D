@@ -24,6 +24,3 @@ func _ready() -> void:
 		player.global_position = room_default_point.global_position
 		if camera_mode == CameraHandler.CAMERA_MODE.MODE_3D:
 			player.cameraHandler.global_rotation = room_default_point.global_rotation
-		else:
-			player.rotation.y = deg_to_rad(-90)
-			print(player.rotation)
