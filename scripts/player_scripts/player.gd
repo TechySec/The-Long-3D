@@ -15,7 +15,11 @@ var is_fuckign_dead_oh_my_fucking_god_he_died_jesus_christ_he_died_waaa_waaa_waa
 
 @export var cameraHandler:CameraHandler
 
-#@export var model:Node3D
+var layer_hop_destination := 0.0
+var original_layer_position := 0.0
+
+var no_wall_check_failed := false
+var no_wall_failed_weight := 25.0
 
 func _physics_process(delta: float) -> void:
 	if is_fuckign_dead_oh_my_fucking_god_he_died_jesus_christ_he_died_waaa_waaa_waaa:
@@ -32,7 +36,33 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, direction.z, delta * 9999999)
 	else:
 		velocity.x = direction.x * MOVE_SPEED
-		velocity.z = direction.z * MOVE_SPEED
+		
+		if Input.is_action_just_pressed("forward_hop") and layer_hop_destination == 0:
+			layer_hop_destination = -1
+			original_layer_position = position.z
+		
+		if Input.is_action_just_pressed("backwards_hop") and layer_hop_destination == 0:
+			layer_hop_destination = 1
+			original_layer_position = position.z
+		
+		if is_on_wall() and layer_hop_destination != 0.0:
+			no_wall_check_failed = true
+			layer_hop_destination = 0.0
+			
+		if not no_wall_check_failed:
+			var pos_check = (original_layer_position + layer_hop_destination) - position.z
+			if layer_hop_destination < 0: pos_check = position.z - (original_layer_position + layer_hop_destination)
+			
+			if (pos_check <= 0) and layer_hop_destination != 0:
+				layer_hop_destination = 0.0
+			
+			velocity.z = MOVE_SPEED * layer_hop_destination
+		else:
+			position.z = lerpf(position.z, original_layer_position, delta * no_wall_failed_weight)
+			
+			if absf(position.z - original_layer_position) < 0.001:
+				no_wall_check_failed = false
+		
 	
 	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
