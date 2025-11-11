@@ -23,6 +23,7 @@ var no_wall_failed_weight := 25.0
 
 func _physics_process(delta: float) -> void:
 	if is_fuckign_dead_oh_my_fucking_god_he_died_jesus_christ_he_died_waaa_waaa_waaa:
+		if $RESPAWN_TIMER.is_stopped(): $RESPAWN_TIMER.start()
 		return
 		
 	# oh my god there is no Y :(
@@ -60,7 +61,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			position.z = lerpf(position.z, original_layer_position, delta * no_wall_failed_weight)
 			
-			if absf(position.z - original_layer_position) < 0.001:
+			if absf(position.z - original_layer_position) <= 0:
 				no_wall_check_failed = false
 		
 	
@@ -80,3 +81,11 @@ func _physics_process(delta: float) -> void:
 		velocity.y /= 2
 	
 	move_and_slide()
+	
+
+func kill():
+	is_fuckign_dead_oh_my_fucking_god_he_died_jesus_christ_he_died_waaa_waaa_waaa = true
+
+
+func _on_respawn_timer_timeout() -> void:
+	get_tree().reload_current_scene()

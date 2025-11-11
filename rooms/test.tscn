@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dlj5m06lpfu75"]
+[gd_scene load_steps=11 format=3 uid="uid://dlj5m06lpfu75"]
 
 [ext_resource type="Script" uid="uid://b1ydu27vbdq56" path="res://scripts/room_scripts/room.gd" id="1_yo7q2"]
 [ext_resource type="PackedScene" uid="uid://x7ixskn1mbjl" path="res://nodes/player.tscn" id="2_tu2lb"]
 [ext_resource type="Script" uid="uid://gmeis7recxob" path="res://scripts/room_scripts/change_rooms.gd" id="4_gdiw3"]
 [ext_resource type="MeshLibrary" uid="uid://bjd4jkonv4517" path="res://models/prototype_mesh_library.tres" id="4_yo7q2"]
+[ext_resource type="PackedScene" uid="uid://dla17v78vgug3" path="res://nodes/objects/spike.tscn" id="5_tu2lb"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_37kl0"]
 ground_color = Color(1, 1, 1, 1)
@@ -23,15 +24,18 @@ size = Vector3(3, 9, 5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_yo7q2"]
 size = Vector3(199, 107, 3)
 
-[node name="Node3D" type="Node3D" node_paths=PackedStringArray("room_default_point", "room_spawn_positions")]
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("room_default_point", "room_spawn_positions", "camera_position")]
 script = ExtResource("1_yo7q2")
 room_default_point = NodePath("DEFAULT_POSITION")
 room_spawn_positions = {
 0: NodePath("Node3D/SPAWN_POSITION")
 }
 camera_mode = 0
+lock_camera = true
+camera_position = NodePath("Marker3D")
+set_song = true
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("2_tu2lb")]
+[node name="Player" parent="." instance=ExtResource("2_tu2lb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 89)
 floor_stop_on_slope = false
 
@@ -79,5 +83,17 @@ metadata/_editor_floor_ = Vector3(0, 3, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.5, 53, -1)
 shape = SubResource("BoxShape3D_yo7q2")
 debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="SPIKE" parent="." instance=ExtResource("5_tu2lb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -4)
+
+[node name="SPIKE2" parent="." instance=ExtResource("5_tu2lb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -5)
+
+[node name="SPIKE3" parent="." instance=ExtResource("5_tu2lb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -6)
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 6)
 
 [connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]

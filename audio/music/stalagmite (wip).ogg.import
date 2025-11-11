@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ch6ke7etpue7n"
+path="res://.godot/imported/stalagmite (wip).ogg-118fbee62c32f20dd7ebc0415fa98889.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/music/stalagmite (wip).ogg"
+dest_files=["res://.godot/imported/stalagmite (wip).ogg-118fbee62c32f20dd7ebc0415fa98889.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

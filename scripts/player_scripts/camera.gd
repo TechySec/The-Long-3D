@@ -1,8 +1,8 @@
 class_name CameraHandler extends Node3D
 
 enum CAMERA_MODE {
-	MODE_2D = 0,
-	MODE_3D = 1
+	MODE_2D = 0, ## Will either follow Sade in a sideview or be locked in a set position if [Room.lock_camera] (Lock camera position in inspector) is enabled. 
+	MODE_3D = 1 ## Will change the camera and Sade's movement to be similar to games like Roblox's movement. Can not zoom in and out of the camera.
 }
 
 @export var sensitivity := 0.005
@@ -20,14 +20,19 @@ var camera_mode:CAMERA_MODE = CAMERA_MODE.MODE_3D
 
 @onready var main_camera:Camera3D = $SpringArm3D/Camera3D
 
-func _init():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+var lock_camera:bool = false
 
+func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 func _process(delta: float) -> void:
 	var player:Player = get_parent()
 	
 	var player_vel_norm:Vector3 = player.velocity.normalized()
 	if camera_mode == CAMERA_MODE.MODE_2D:
+		if lock_camera:
+			return
+		
 		top_down_camera.make_current()
 		var camera_pos = Vector3 (
 			player.global_position.x + player_vel_norm.x*top_down_camera_distance, 
