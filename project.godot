@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 Global="*res://scripts/global.gd"
 AudioHandler="*res://audio/AudioHandler.tscn"
 GameUI="*res://nodes/UI.tscn"
+GameData="*res://game_data.gd"
 
 [display]
 

@@ -13,9 +13,11 @@ sounds_array = [NodePath("SFX/MovingStone")]
 
 [node name="Stalagmite(wip)" type="AudioStreamPlayer" parent="MUSIC"]
 stream = ExtResource("2_j8obr")
+bus = &"Music"
 parameters/looping = true
 
 [node name="SFX" type="Node" parent="."]
 
 [node name="MovingStone" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("3_nexa2")
+bus = &"SFX"

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c54k5f8sl5ttn"]
+[gd_scene load_steps=4 format=3 uid="uid://c54k5f8sl5ttn"]
 
-[ext_resource type="Script" uid="uid://tix466x6frj5" path="res://scripts/ui.gd" id="1_vuwep"]
-[ext_resource type="Script" uid="uid://dqthffc721nyc" path="res://scripts/pause_menu.gd" id="2_57650"]
+[ext_resource type="Script" uid="uid://tix466x6frj5" path="res://scripts/ui_scripts/ui.gd" id="1_vuwep"]
+[ext_resource type="Script" uid="uid://dqthffc721nyc" path="res://scripts/ui_scripts/pause_menu.gd" id="2_57650"]
+[ext_resource type="Script" uid="uid://cqdv2lsvlq3p" path="res://scripts/ui_scripts/volume_handler.gd" id="3_fkvgw"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 process_mode = 3
@@ -46,7 +47,12 @@ offset_right = 640.0
 offset_bottom = 479.0
 color = Color(0, 0, 0, 0.2627451)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+[node name="Buttons" type="Control" parent="PauseMenu"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Buttons"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -61,13 +67,97 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Resume" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="Resume" type="Button" parent="PauseMenu/Buttons/VBoxContainer"]
 layout_mode = 2
 text = "Resume"
 
-[node name="Quit" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="Settings" type="Button" parent="PauseMenu/Buttons/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit" type="Button" parent="PauseMenu/Buttons/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
 
-[connection signal="button_up" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_button_up"]
-[connection signal="button_up" from="PauseMenu/VBoxContainer/Quit" to="PauseMenu" method="_on_quit_button_up"]
+[node name="Settings" type="Control" parent="PauseMenu"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TabContainer" type="TabContainer" parent="PauseMenu/Settings"]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 480.0
+current_tab = 0
+
+[node name="TabBar" type="TabBar" parent="PauseMenu/Settings/TabContainer"]
+layout_mode = 2
+script = ExtResource("3_fkvgw")
+metadata/_tab_index = 0
+
+[node name="MASTER_SLIDER" type="HSlider" parent="PauseMenu/Settings/TabContainer/TabBar"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 33.0
+offset_right = 208.0
+offset_bottom = 49.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Label" type="Label" parent="PauseMenu/Settings/TabContainer/TabBar/MASTER_SLIDER"]
+layout_mode = 0
+offset_top = -24.0
+offset_right = 192.0
+offset_bottom = -1.0
+text = "Master Volume"
+
+[node name="SOUND_SLIDER" type="HSlider" parent="PauseMenu/Settings/TabContainer/TabBar"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 89.0
+offset_right = 208.0
+offset_bottom = 105.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Label" type="Label" parent="PauseMenu/Settings/TabContainer/TabBar/SOUND_SLIDER"]
+layout_mode = 0
+offset_top = -24.0
+offset_right = 192.0
+offset_bottom = -1.0
+text = "Sound Volume"
+
+[node name="MUSIC_SLIDER" type="HSlider" parent="PauseMenu/Settings/TabContainer/TabBar"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 145.0
+offset_right = 208.0
+offset_bottom = 161.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Label" type="Label" parent="PauseMenu/Settings/TabContainer/TabBar/MUSIC_SLIDER"]
+layout_mode = 0
+offset_top = -24.0
+offset_right = 192.0
+offset_bottom = -1.0
+text = "Music Volume"
+
+[node name="Button" type="Button" parent="PauseMenu/Settings"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 440.0
+offset_right = 120.0
+offset_bottom = 472.0
+text = "Exit Settings"
+
+[connection signal="button_up" from="PauseMenu/Buttons/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_button_up"]
+[connection signal="button_up" from="PauseMenu/Buttons/VBoxContainer/Settings" to="PauseMenu" method="_on_settings_button_up"]
+[connection signal="button_up" from="PauseMenu/Buttons/VBoxContainer/Quit" to="PauseMenu" method="_on_quit_button_up"]
+[connection signal="value_changed" from="PauseMenu/Settings/TabContainer/TabBar/MASTER_SLIDER" to="PauseMenu/Settings/TabContainer/TabBar" method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="PauseMenu/Settings/TabContainer/TabBar/SOUND_SLIDER" to="PauseMenu/Settings/TabContainer/TabBar" method="_on_sound_slider_value_changed"]
+[connection signal="value_changed" from="PauseMenu/Settings/TabContainer/TabBar/MUSIC_SLIDER" to="PauseMenu/Settings/TabContainer/TabBar" method="_on_music_slider_value_changed"]

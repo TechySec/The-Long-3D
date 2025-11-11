@@ -1,7 +1,7 @@
 class_name CameraHandler extends Node3D
 
 enum CAMERA_MODE {
-	MODE_2D = 0, ## Will either follow Sade in a sideview or be locked in a set position if [Room.lock_camera] (Lock camera position in inspector) is enabled. 
+	MODE_2D = 0, ## Will either follow Sade in a sideview or be locked in a set position if [member Room.lock_camera] (Lock camera position in inspector) is enabled. 
 	MODE_3D = 1 ## Will change the camera and Sade's movement to be similar to games like Roblox's movement. Can not zoom in and out of the camera.
 }
 
